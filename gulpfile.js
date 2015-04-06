@@ -5,6 +5,8 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var url = require('url');
+var proxy = require('proxy-middleware');
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.css')
@@ -70,6 +72,8 @@ gulp.task('extras', function () {
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', ['styles', 'fonts'], function () {
+    var proxyUrl = url.parse('https://api.parse.com/1/');
+    proxyUrl.route = '/1';
   browserSync({
     notify: false,
     port: 9000,
@@ -77,7 +81,8 @@ gulp.task('serve', ['styles', 'fonts'], function () {
       baseDir: ['.tmp', 'app'],
       routes: {
         '/bower_components': 'bower_components'
-      }
+      },
+      middleware: [proxy(proxyUrl)]
     }
   });
 
