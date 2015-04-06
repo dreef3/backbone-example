@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'text!todo/todo.html'], function (_, Backbone, viewTemplate) {
+define(['underscore', 'backbone', 'text!todo/item/todo.html'], function (_, Backbone, viewTemplate) {
     return Backbone.View.extend({
         template: _.template(viewTemplate),
 

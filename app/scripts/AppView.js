@@ -1,4 +1,5 @@
-define(['underscore', 'backbone', 'todo/TodoListView', 'text!main.html'], function (_, Backbone, TodoListView, viewTemplate) {
+define(['underscore', 'backbone', 'todo/list/TodoListView', 'text!main.html'],
+    function (_, Backbone, TodoListView, viewTemplate) {
     var AppView = Backbone.View.extend({
         el: '#application-container',
         template: _.template(viewTemplate),
