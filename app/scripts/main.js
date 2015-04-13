@@ -6,6 +6,7 @@ requirejs.config({
         'underscore': BOWER + 'lodash/lodash',
         'jquery': BOWER + 'jquery/dist/jquery',
         'bootstrap': BOWER + 'bootstrap/dist/js/bootstrap',
+        'marionette': BOWER + 'marionette/lib/backbone.marionette',
 
         // Require.js plugins
         'text': BOWER + 'requirejs-text/text'
