@@ -1,6 +1,6 @@
-define(['underscore', 'backbone', 'todo/item/TodoItem', 'text!todo/create/createTodo.html'],
-    function (_, Backbone, TodoItem, viewTemplate) {
-    return Backbone.View.extend({
+define(['underscore', 'marionette', 'todo/item/TodoItem', 'text!todo/create/createTodo.html'],
+    function (_, Marionette, TodoItem, viewTemplate) {
+    return Marionette.ItemView.extend({
         template: _.template(viewTemplate),
 
         events: {
@@ -10,12 +10,6 @@ define(['underscore', 'backbone', 'todo/item/TodoItem', 'text!todo/create/create
         initialize: function () {
             _.bindAll(this, 'onSubmit');
             this.model = new TodoItem();
-        },
-
-        render: function () {
-            this.$el.html(this.template(this.model.toJSON()));
-            this.delegateEvents();
-            return this;
         },
 
         onSubmit: function (e) {

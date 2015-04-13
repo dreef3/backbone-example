@@ -18,9 +18,8 @@ requirejs.config({
     }
 });
 
-require(['jquery', 'AppView'], function ($, AppView) {
+require(['jquery', 'app'], function ($, app) {
     $(function () {
-        console.log('Loaded with Require.js');
-        AppView.start();
+        app.start();
     });
 });

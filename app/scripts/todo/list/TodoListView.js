@@ -1,29 +1,33 @@
-define(['underscore', 'backbone', 'todo/list/TodoList', 'todo/item/TodoView', 'todo/create/CreateTodoView', 'text!todo/list/todoList.html'],
-    function (_, Backbone, TodoList, TodoView, CreateTodoView, viewTemplate) {
-    return Backbone.View.extend({
-        template: _.template(viewTemplate),
+define(['underscore', 'marionette', 'todo/list/TodoList', 'todo/item/TodoView', 'todo/create/CreateTodoView', 'text!todo/list/todoList.html'],
+    function (_, Marionette, TodoList, TodoView, CreateTodoView, viewTemplate) {
+        var TodoListView = Marionette.CollectionView.extend({
+            childView: TodoView,
 
-        initialize: function () {
-            _.bindAll(this, 'render');
-            this.collection = new TodoList();
-            this.listenTo(this.collection, 'sync add remove', this.render);
-            this.collection.fetch();
-            this.createTodoView = new CreateTodoView();
-            this.listenTo(this.createTodoView, 'model:save', function (model) {
-                this.collection.add(model);
-            });
-        },
+            collectionEvents: {
+                'add remove sync reset': 'render'
+            }
+        });
 
-        render: function () {
-            this.$el.html(this.template());
+        return Marionette.LayoutView.extend({
+            template: _.template(viewTemplate),
 
-            this.$('#add-todo-container').html(this.createTodoView.render().el);
+            regions: {
+                'add': '#add-todo-container',
+                'list': '#todo-list-container'
+            },
 
-            var $list = this.$('ul');
-            this.collection.each(function (item) {
-                $list.append(new TodoView({model: item}).render().el);
-            }, this);
-            return this;
-        }
+            initialize: function () {
+                this.collection = new TodoList();
+                this.collection.fetch();
+                this.createTodoView = new CreateTodoView();
+                this.listenTo(this.createTodoView, 'model:save', function (model) {
+                    this.collection.add(model);
+                });
+            },
+
+            onBeforeShow: function () {
+                this.showChildView('add', this.createTodoView);
+                this.showChildView('list', new TodoListView({collection: this.collection}));
+            }
+        });
     });
-});
