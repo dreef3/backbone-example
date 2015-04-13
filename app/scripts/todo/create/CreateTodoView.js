@@ -8,6 +8,7 @@ define(['underscore', 'backbone', 'todo/item/TodoItem', 'text!todo/create/create
         },
 
         initialize: function () {
+            _.bindAll(this, 'onSubmit');
             this.model = new TodoItem();
         },
 
