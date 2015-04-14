@@ -1,7 +1,8 @@
 define(function (require) {
     var _ = require('underscore'),
         Marionette = require('marionette'),
-        TodoPageView = require('todo/TodoPageView');
+        TodoPageView = require('todo/TodoPageView'),
+        ProfilePageView = require('profile/ProfilePageView');
 
     var RootView = Marionette.LayoutView.extend({
         el: '#application-container',
@@ -14,6 +15,10 @@ define(function (require) {
     var App = Marionette.Application.extend({
         todosPage: function () {
             this.rootView.showChildView('root', new TodoPageView());
+        },
+
+        profilePage: function () {
+            this.rootView.showChildView('root', new ProfilePageView());
         },
 
         default: function () {
@@ -30,6 +35,7 @@ define(function (require) {
             controller: this,
             appRoutes: {
                 'todos': 'todosPage',
+                'profile': 'profilePage',
                 '': 'default'
             }
         });

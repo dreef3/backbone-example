@@ -9,5 +9,10 @@
     "requirejs": "~2.1.17",
     "requirejs-text": "~2.0.14",
     "marionette": "~2.4.1"
+  },
+  "devDependencies": {
+    "mocha": "~2.2.4",
+    "chai": "~2.2.0",
+    "chai-jquery": "~2.0.0"
   }
 }
